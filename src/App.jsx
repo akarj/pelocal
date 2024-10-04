@@ -15,12 +15,17 @@ function App() {
 		}
 	}, []);
 
+	useEffect(() => {}, [filter]);
+
 	function addTodo(newTodo) {
 		setTodo(prev => [...prev, newTodo]);
 	}
 
 	function handleListFilter(ev) {
-		const newList = todo.filter(item => item.task === ev.target.value);
+		const newList = todo.filter(item =>
+			item.task.toLowerCase().includes(ev.target.value.toLowerCase())
+		);
+		console.log('filter', { filter, newList, todo });
 		setList(newList);
 	}
 
@@ -43,7 +48,7 @@ function App() {
 	function handleComplete(id) {
 		const newList = todo.map(item => {
 			if (item.id === id) {
-				return { ...item, completed: true };
+				return { ...item, completed: item.completed ? !item.completed : true };
 			}
 			return item;
 		});

@@ -2,7 +2,7 @@
 import TodoItemComponent from './TodoItemComponent';
 
 const TodoListComponent = ({ list, deleteClick, editClick, completeClick }) => {
-	console.log('list', list);
+	// console.log('list', list);
 	return (
 		<div className="flex flex-col">
 			{list.map((item, index) => {

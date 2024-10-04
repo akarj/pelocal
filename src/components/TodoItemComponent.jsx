@@ -7,6 +7,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const TodoItemComponent = ({ item, deleteClick, editClick, completeClick }) => {
 	const [tempTodo, setTempTodo] = useState(item.task);
+	const [isEditOn, setIsEditOn] = useState(false);
+
 	console.log('item', { item, tempTodo });
 
 	return (
@@ -22,6 +24,7 @@ const TodoItemComponent = ({ item, deleteClick, editClick, completeClick }) => {
 						type="text"
 						value={tempTodo}
 						onChange={e => setTempTodo(e.target.value)}
+						readOnly={!isEditOn}
 						sx={{
 							textDecoration: item.completed ? 'line-through' : 'none',
 							color: item.completed ? 'gray' : 'inherit',
@@ -36,7 +39,10 @@ const TodoItemComponent = ({ item, deleteClick, editClick, completeClick }) => {
 									<IconButton
 										size="small"
 										key="edit"
-										onClick={() => editClick(item.id, tempTodo)}
+										onClick={() => {
+											setIsEditOn(prev => !prev);
+											editClick(item.id, tempTodo);
+										}}
 									>
 										<EditIcon fontSize="small" color="white" />
 									</IconButton>
